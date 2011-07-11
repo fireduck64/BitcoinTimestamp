@@ -37,6 +37,10 @@ it over and use it if you like.
 The "decode" command pulls a specified transaction from blockexplorer and attempts to decode it
 into a hash, verifying the checksum.
 
+To see some example transactions:
+http://blockexplorer.com/tx/f6f89da0b22ca49233197e072a39554147b55755be0c7cdf139ad33cc973ec46
+http://blockexplorer.com/tx/49a130ce4255fc91061c3d1170cbc256f51ed671256df837500d59183cfdd64f (whenever it actually goes in a block)
+
 
 Syntax
 ------
