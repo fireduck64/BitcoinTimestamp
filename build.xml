@@ -7,7 +7,7 @@
   <property name="test" value="./test" />
   <property name="build_test" value="./build_test" />
   <property name="lib" value="./lib" />
-  <property name="version" value="1.0.0" />
+  <property name="version" value="1.0.1" />
 
   <path id="test.classpath">
     <pathelement location="${build}" />
@@ -60,7 +60,7 @@
         <attribute name="Main-Class" value="fireduck64.bitcoin.timestamp.BitcoinTimestamp"/>
       </manifest>
 	</jar>
-  	<jar destfile="${jar}/BitcointTimestamp-${version}-lib.jar" basedir="build">
+  	<jar destfile="${jar}/BitcoinTimestamp-${version}-lib.jar" basedir="build">
 	</jar>
 </target>
 

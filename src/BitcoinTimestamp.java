@@ -112,6 +112,18 @@ public class BitcoinTimestamp
 
     public static String getSendmanyCommand(String hash, TreeSet<String> addresses) throws Exception
     {
+        TreeMap<String, String> hash160_to_address=new TreeMap<String, String>();
+        TreeSet<String> hash160_set = new TreeSet<String>();
+
+        //We have to sort by the same thing we are going to sort by on the other side
+        //the hash160 value for the key is a good one
+        for(String address : addresses)
+        {
+            String hash160 = getHash160FromAddress(address);
+            hash160_set.add(hash160);
+            hash160_to_address.put(hash160, address);
+
+        }
             String token = hash;
 
             BigInteger bi = new BigInteger(token, 16);
@@ -137,14 +149,15 @@ public class BitcoinTimestamp
             sb.append(" fromacct");
             sb.append(" '{");
 
-            Iterator<String> address_i = addresses.iterator();
+            Iterator<String> hash_i = hash160_set.iterator();
 
             boolean first=true;
 
             for(BigInteger amt : amount_values)
             {
              
-                String address = address_i.next();
+                String hash160 = hash_i.next();
+                String address = hash160_to_address.get(hash160);
                 int val = amt.intValue();
                 double d = btc_factor * val;
 
@@ -314,5 +327,40 @@ public class BitcoinTimestamp
 
     }
 
+    public static String getHash160FromAddress(String address)
+    {
+        String base58="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+        TreeMap<Character, Integer> radix_value_map = new TreeMap<Character, Integer>();
+
+        for(int i=0; i<base58.length(); i++)
+        {
+            radix_value_map.put(base58.charAt(i), i);
+        }
+
+
+
+        BigInteger bi = BigInteger.ZERO;
+        BigInteger base = new BigInteger("58");
+
+        for(int i=0; i<address.length(); i++)
+        {
+            char x = address.charAt(i);
+            int val = radix_value_map.get(x);
+            bi = bi.multiply(base);
+            bi = bi.add(BigInteger.valueOf(val));
+
+        }
+
+        String hex= bi.toString(16);
+        while(hex.length() < 48)
+        {
+            hex = "0" + hex;
+        }
+
+        String hash160=hex.substring(0, 40);
+
+        return hash160;
+
+    }
 
 }
