@@ -39,7 +39,7 @@ into a hash, verifying the checksum.
 
 To see some example transactions:
 http://blockexplorer.com/tx/f6f89da0b22ca49233197e072a39554147b55755be0c7cdf139ad33cc973ec46
-http://blockexplorer.com/tx/49a130ce4255fc91061c3d1170cbc256f51ed671256df837500d59183cfdd64f (whenever it actually goes in a block)
+http://blockexplorer.com/tx/49a130ce4255fc91061c3d1170cbc256f51ed671256df837500d59183cfdd64f
 
 As is the style of bitcoin projects, I'll put a donation address: 1PqPyRvMHfjTuszjcRswL93fPWhGqj4q8g
 However, donate to blockexplorer first: 1Cvvr8AsCfbbVQ2xoWiFD1Gb2VRbGsEf28
@@ -48,7 +48,7 @@ Without that, this project would have taken a million multons rather than 4 hour
 
 Syntax
 ------
-java -jar BitcoinTimestamp-1.0.0.jar encode HASH_STRING
+java -jar BitcoinTimestamp.jar encode HASH_STRING
   The hash string is expected to be a hexadecimal encoded output 256 bits in length
   Example:
     encode 5a85dc07abe09caf05b56603068d7255fa59737aacac7e959b7e7a544d322a9b
@@ -57,7 +57,7 @@ java -jar BitcoinTimestamp-1.0.0.jar encode HASH_STRING
    go to him.  It should be on average 0.006 BTC + transaction fees.
    Your file must contain at least 17 addresses, whitespace delimited.
 
-java -jar BitcoinTimestamp-1.0.0.jar decode TRANSACTION_ID
+java -jar BitcoinTimestamp.jar decode TRANSACTION_ID
   Example:
     decode f6f89da0b22ca49233197e072a39554147b55755be0c7cdf139ad33cc973ec46
 
