@@ -1,0 +1,55 @@
+Want to create a digital timestamp without relying on an trusted third party to provider
+to sign your hashes?
+
+http://en.wikipedia.org/wiki/Trusted_timestamping
+
+Why not use the bitcoin block chain to store it for you in a way that doesn't involve 
+trusting anyone.
+
+The basic idea behind crypto timestamps is that you want to prove that you had a hash
+of some data at a certain time.  Imagine you create a program and want to prove that
+you made it today so that years from now if someone claimed to have it first you can prove
+that you had it on this day.  You would tar up your source, take a hash of it and have
+that hash signed by a trusted third party signing that they saw that hash from you today.
+
+The trouble there is then you are relying on the reputation and security standards of some 
+organization that might have a major security breech any time.
+
+An answer is to use the bitcoin block chain.  Imagine you have a SHA256 hash.
+Break it up into peices and send each peice to some address.
+5a85dc07abe09caf05b56603068d7255fa59737aacac7e959b7e7a544d322a9b
+becomes
+5a85 dc07 abe0 9caf 05b5 6603 068d 7255 fa59 737a acac 7e95 9b7e 7a54 4d32 2a9b
+Each of these hex numbers becomes a small amount of BTC.  You send these amounts of 16 addresses
+after sorting the addresses.  That way, however it ends up in the transaction you can get it back
+into the proper order (by sorting the addresses again) and extracting your original hash.
+
+This ends up as part of the block chain, inspectable and verifyable by anyone.  All the blocks 
+after the one your transaction gets set in prove that you had the hash when that block was made.
+
+Of course there is a change return part of the transaction that can confuse things, so add a 17th 
+send as a checksum.  Then you can reassemble the hash even if the change is inside the expected range.
+
+That is what this progam does.  When do you "encode" it creates a sendmany command for the bitcoind
+RPC command line interface.  It doesn't actually send anything, just creates the command.  You can look
+it over and use it if you like.
+
+The "decode" command pulls a specified transaction from blockexplorer and attempts to decode it
+into a hash, verifying the checksum.
+
+
+Syntax
+------
+java -jar BitcoinTimestamp-1.0.0.jar encode HASH_STRING
+  The hash string is expected to be a hexadecimal encoded output 256 bits in length
+  Example:
+    encode 5a85dc07abe09caf05b56603068d7255fa59737aacac7e959b7e7a544d322a9b
+  Note: if you create a file 'hashcapture.list' it will be used for the destination addresses.
+   if you don't do that, this program will use addresses of the author and your pitance will
+   go to him.  It should be on average 0.006 BTC + transaction fees.
+   Your file must contain at least 17 addresses, whitespace delimited.
+
+java -jar BitcoinTimestamp-1.0.0.jar decode TRANSACTION_ID
+  Example:
+    decode f6f89da0b22ca49233197e072a39554147b55755be0c7cdf139ad33cc973ec46
+
