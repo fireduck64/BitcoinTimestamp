@@ -16,7 +16,7 @@ The trouble there is then you are relying on the reputation and security standar
 organization that might have a major security breech any time.
 
 An answer is to use the bitcoin block chain.  Imagine you have a SHA256 hash.
-Break it up into peices and send each peice to some address.
+Break it up into pieces and send each piece to some address.
 5a85dc07abe09caf05b56603068d7255fa59737aacac7e959b7e7a544d322a9b
 becomes
 5a85 dc07 abe0 9caf 05b5 6603 068d 7255 fa59 737a acac 7e95 9b7e 7a54 4d32 2a9b
